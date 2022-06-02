@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tyba_great_app/models/get_nearby_restaurants_response_model.dart';
+import 'package:tyba_great_app/screens/history_screen/history_screen.dart';
 import 'package:tyba_great_app/screens/home_screen/home_presenter.dart';
+import 'package:tyba_great_app/screens/login_screen/login_screen.dart';
 import 'package:tyba_great_app/screens/register_screen/register_screen.dart';
 import 'package:tyba_great_app/widgets/restaurant_widget/restaurant_widget.dart';
 
@@ -26,6 +28,9 @@ class _HomeScreenState extends HomeScreenDelegate<HomeScreen> {
   void initState() {
     presenter.mView = this;
     presenter.getNearbyRestaurants(showInUserLocation: true);
+    setState(() {
+      searchingInUserLocation = true;
+    });
     super.initState();
   }
 
@@ -63,7 +68,7 @@ class _HomeScreenState extends HomeScreenDelegate<HomeScreen> {
 
   Widget _createSearchCityContainer() {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.only(left: 24, right: 24, top: 24, bottom: 0),
       color: Theme.of(context).colorScheme.secondary,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +89,14 @@ class _HomeScreenState extends HomeScreenDelegate<HomeScreen> {
           if(searchingInUserLocation)
             Text("Mostrando restaurantes cercanos a tu ubicación", style: Theme.of(context).textTheme.bodyText2?.copyWith(
               color: Colors.white
-            ))
+            )),
+          const SizedBox(height: 24),
+          TextButton(
+            onPressed: _navigateToHistory,
+            child: Text("Ver historial de búsqueda", style: Theme.of(context).textTheme.bodyText2?.copyWith(
+              color: Colors.white
+            )),
+          )
         ],
       ),
     );
@@ -118,7 +130,7 @@ class _HomeScreenState extends HomeScreenDelegate<HomeScreen> {
 
   @override
   void navigateToLogin() {
-    navigatePushReplacement(const RegisterScreen(key: Key("RegisterScreen")));
+    navigatePushReplacement(const LoginScreen(key: Key("LoginScreen")));
   }
 
   @override
@@ -126,5 +138,20 @@ class _HomeScreenState extends HomeScreenDelegate<HomeScreen> {
     setState(() {
       searchingInUserLocation = false;
     });
-  }  
+  }
+
+  void _navigateToHistory() {
+    navigatePush(
+      HistoryScreen(
+        key: const Key("HistoryScreen"),
+        onClickSearch: (String text) {
+          setState(() {
+            _searchTextEditingController.text = text;
+          });
+          presenter.getNearbyRestaurants(text: text);
+        },
+      )
+    );
+  }
+
 }

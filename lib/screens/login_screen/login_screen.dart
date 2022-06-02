@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:tyba_great_app/constanst/assets_contants.dart';
 import 'package:tyba_great_app/screens/home_screen/home_screen.dart';
 import 'package:tyba_great_app/screens/login_screen/login_presenter.dart';
+import 'package:tyba_great_app/screens/register_screen/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
 
@@ -64,10 +65,19 @@ class _LoginScreenState extends LoginScreenDelegate<LoginScreen> {
           const SizedBox(height: 16),
           _createInputPassword(),
           const SizedBox(height: 8),
-          _createCheckBoxShowPassword()
+          _createCheckBoxShowPassword(),
+          const SizedBox(height: 24),
+          _createButtonRegister()
         ],
       ),
       key: _loginFormKey,
+    );
+  }
+
+  Widget _createButtonRegister() {
+    return TextButton(
+      onPressed: _navigateToRegister,
+      child: Text("Registrarse")
     );
   }
 
@@ -156,6 +166,10 @@ class _LoginScreenState extends LoginScreenDelegate<LoginScreen> {
   @override
   void navigateToHome() {
     navigatePushReplacement(const HomeScreen(key: Key("HomeScreen")));
+  }
+
+  void _navigateToRegister() {
+    navigatePush(const RegisterScreen(key: Key("RegisterScreen")));
   }
 
 }
