@@ -1,0 +1,1 @@
+const String kLottieLoader = "assets/json/loader.json";

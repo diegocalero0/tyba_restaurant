@@ -1,21 +1,55 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:tyba_great_app/base/service_locator.dart';
+import 'package:tyba_great_app/firebase_options.dart';
+import 'package:tyba_great_app/screens/register_screen/regiser_screen.dart';
+import 'package:tyba_great_app/screens/splash_screen/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  setupLoader();
+  setupLocator();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
+}
+
+void setupLoader() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.circle
+    ..loadingStyle = EasyLoadingStyle.custom
+    ..radius = 10.0
+    ..progressColor = Colors.yellow
+    ..backgroundColor = Colors.transparent
+    ..boxShadow = <BoxShadow>[]
+    ..indicatorColor = Colors.yellow.withOpacity(0.0)
+    ..textColor = Colors.yellow
+    ..maskColor = Colors.black.withOpacity(0.5)
+    ..maskType = EasyLoadingMaskType.none
+    ..userInteractions = false
+    ..dismissOnTap = false;
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Tyba Restaurant',
+      builder: EasyLoading.init(),
       darkTheme: ThemeData(
 
       ),
       theme: ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4)
+          )
+        ),
         textTheme: const TextTheme(
           headline1: TextStyle(
             fontFamily: "Lato",
@@ -54,9 +88,15 @@ class MyApp extends StatelessWidget {
             color: Color(0xff496976)
           )
         ),
-        primarySwatch: Colors.blue,
+        colorScheme: const ColorScheme.light().copyWith(
+          primary: const Color.fromRGBO(7, 48, 42, 1.0),
+        ),
+        checkboxTheme: CheckboxThemeData(
+          fillColor: MaterialStateProperty.resolveWith((states) => const Color.fromRGBO(7, 48, 42, 1.0))
+          
+        )
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const SplashScreen(key: Key("SplashScreen")),
     );
   }
 }
