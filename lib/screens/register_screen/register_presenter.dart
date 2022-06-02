@@ -4,7 +4,7 @@ import 'package:tyba_great_app/base/service_locator.dart';
 import 'package:tyba_great_app/use_cases/create_user_use_case.dart';
 
 abstract class RegisterScreenDelegate<T extends StatefulWidget> extends BaseState<T> {
-
+  void navigateToHome();
 }
 
 class RegisterPresenter {
@@ -24,7 +24,7 @@ class RegisterPresenter {
     try {
       final credential = await _createUserUseCase.invoke(email, password);
       mView?.hideLoader();
-      mView?.showAlert("Usuario creado"); 
+      mView?.showAlert("Usuario creado correctamente", action: mView?.navigateToHome); 
     } catch(e) {
       mView?.hideLoader();
       mView?.showAlert(e.toString());

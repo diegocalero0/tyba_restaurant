@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:tyba_great_app/base/service_locator.dart';
 import 'package:tyba_great_app/firebase_options.dart';
-import 'package:tyba_great_app/screens/register_screen/regiser_screen.dart';
+import 'package:tyba_great_app/screens/register_screen/register_screen.dart';
 import 'package:tyba_great_app/screens/splash_screen/splash_screen.dart';
 
 void main() async {
@@ -46,9 +46,13 @@ class MyApp extends StatelessWidget {
       ),
       theme: ThemeData(
         inputDecorationTheme: InputDecorationTheme(
+          fillColor: Colors.white,
+          filled: true,
+          focusColor: Colors.white,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4)
-          )
+          ),
+          
         ),
         textTheme: const TextTheme(
           headline1: TextStyle(
@@ -90,6 +94,7 @@ class MyApp extends StatelessWidget {
         ),
         colorScheme: const ColorScheme.light().copyWith(
           primary: const Color.fromRGBO(7, 48, 42, 1.0),
+          secondary: const Color.fromRGBO(29, 135, 112, 1.0)
         ),
         checkboxTheme: CheckboxThemeData(
           fillColor: MaterialStateProperty.resolveWith((states) => const Color.fromRGBO(7, 48, 42, 1.0))

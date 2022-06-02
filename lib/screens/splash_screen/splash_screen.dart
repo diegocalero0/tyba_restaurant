@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:tyba_great_app/constanst/assets_contants.dart';
 import 'package:tyba_great_app/screens/home_screen/home_screen.dart';
+import 'package:tyba_great_app/screens/login_screen/login_screen.dart';
 import 'package:tyba_great_app/screens/splash_screen/splash_presenter.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -45,7 +46,7 @@ class _SplashScreenState extends SplashScreenDelegate<SplashScreen> {
 
   @override
   void navigateToLogin() {
-    showAlert("No logeado");
+    navigatePushReplacement(const LoginScreen(key: Key("LoginScreen")));
   }
 
 }

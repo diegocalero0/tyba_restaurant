@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tyba_great_app/screens/home_screen/home_screen.dart';
 import 'package:tyba_great_app/screens/register_screen/register_presenter.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -61,7 +62,7 @@ class _RegisterScreenState extends RegisterScreenDelegate<RegisterScreen> {
           _createInputPassword(),
           const SizedBox(height: 16),
           _createInputRePassword(),
-          const SizedBox(height: 16),
+          const SizedBox(height: 8),
           _createCheckBoxShowPassword()
         ],
       ),
@@ -165,6 +166,11 @@ class _RegisterScreenState extends RegisterScreenDelegate<RegisterScreen> {
       presenter.createUser(
         _emailTextEditingController.text, _passwordTextEditingController.text);
     }
+  }
+
+  @override
+  void navigateToHome() {
+    navigatePushReplacement(const HomeScreen(key: Key("HomeScreen")));
   }
 
 }
